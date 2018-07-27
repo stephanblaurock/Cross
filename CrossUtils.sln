@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossUtils", "CrossUtils\CrossUtils.csproj", "{7041EAF1-17A6-4166-B246-20F8571F0E68}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Cross", "Modules.Cross\Modules.Cross.csproj", "{0C17BBF6-0026-4B11-8586-DC88077971A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Cross.Lumara", "Modules.Cross.Lumara\Modules.Cross.Lumara.csproj", "{8BDDCE06-34B8-4D48-AC2C-ED848B67DF90}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modules.Cross.VTrainer", "Modules.Cross.VTrainer\Modules.Cross.VTrainer.csproj", "{5CB3C17F-3AD2-4312-9BCB-7AD7921417B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{7041EAF1-17A6-4166-B246-20F8571F0E68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7041EAF1-17A6-4166-B246-20F8571F0E68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7041EAF1-17A6-4166-B246-20F8571F0E68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C17BBF6-0026-4B11-8586-DC88077971A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C17BBF6-0026-4B11-8586-DC88077971A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C17BBF6-0026-4B11-8586-DC88077971A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C17BBF6-0026-4B11-8586-DC88077971A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BDDCE06-34B8-4D48-AC2C-ED848B67DF90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BDDCE06-34B8-4D48-AC2C-ED848B67DF90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BDDCE06-34B8-4D48-AC2C-ED848B67DF90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BDDCE06-34B8-4D48-AC2C-ED848B67DF90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CB3C17F-3AD2-4312-9BCB-7AD7921417B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CB3C17F-3AD2-4312-9BCB-7AD7921417B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CB3C17F-3AD2-4312-9BCB-7AD7921417B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CB3C17F-3AD2-4312-9BCB-7AD7921417B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

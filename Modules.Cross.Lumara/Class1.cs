@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CrossUtils
+namespace Modules.Cross.Lumara
 {
     public class Class1
     {

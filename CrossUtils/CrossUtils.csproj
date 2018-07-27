@@ -10,4 +10,10 @@
     <PackageReference Include="Xam.Plugin.Connectivity" Version="4.0.0.190-beta" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Http\" />
+    <Folder Include="Imaging\" />
+    <Folder Include="Mqtt\" />
+  </ItemGroup>
+
 </Project>
