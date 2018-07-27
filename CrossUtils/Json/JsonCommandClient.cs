@@ -24,7 +24,7 @@ namespace CrossUtils.Json
 
 		//public Utils.Net.WebSocketClient WebSocketClient { get; private set; }
 
-		public JsonCommandClient(string webserverUrl, int userID, string username, string password) {
+		public JsonCommandClient(string webserverUrl, string username, string password) {
 			Default = this;
 			_Username = username;
 			_Password = password;
@@ -105,6 +105,7 @@ namespace CrossUtils.Json
 				using (var client = new HttpClient()) {
 					var stringContent = new StringContent(JsonConvert.SerializeObject(cmd), Encoding.UTF8, "application/json");      // Utils.Security.Cryptography.EncryptStringAES(cmd.ToJson().ToString()));
 					stringContent.Headers.Add("X-JsonCommand", cmd.CommandName);
+					
 					HttpResponseMessage response = await client.PostAsync(CommandUrl, stringContent);
 					if (response.IsSuccessStatusCode) {
 						if (response.Content != null) {
