@@ -9,6 +9,12 @@ namespace Modules.Cross.Zeit
 {
     public class DataFoxServiceCommands
     {
+		public static JsonCommand CreateGetUserByPINCommand(string pin) {
+			JsonCommand retval = new JsonCommand("GinkgoDataFoxLib.Service.GinkgoDataFoxService", "GetUserByPIN");
+			retval.SetParameter("PIN", pin);
+			return retval;
+		}
+
 		public static JsonCommand CreateAddOrUpdateStempelzeitCommand(Stempelzeit stempelzeit) {
 			JsonCommand retval = new JsonCommand("GinkgoDataFoxLib.Service.GinkgoDataFoxService", "AddOrUpdateStempelzeit");
 			retval.SetParameter("Stempelzeit", JsonConvert.SerializeObject(stempelzeit));

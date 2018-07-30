@@ -26,6 +26,7 @@
 			this._Ausgabe = new DevExpress.XtraEditors.MemoEdit();
 			this._ButtGetUser = new DevExpress.XtraEditors.SimpleButton();
 			this._ButtGetStempelzeiten = new DevExpress.XtraEditors.SimpleButton();
+			this._ButtAddStempelzeiten = new DevExpress.XtraEditors.SimpleButton();
 			((System.ComponentModel.ISupportInitialize)(this._Ausgabe.Properties)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -57,11 +58,21 @@
 			this._ButtGetStempelzeiten.Text = "GetStempelzeiten";
 			this._ButtGetStempelzeiten.Click += new System.EventHandler(this._ButtGetStempelzeiten_Click);
 			// 
+			// _ButtAddStempelzeiten
+			// 
+			this._ButtAddStempelzeiten.Location = new System.Drawing.Point(12, 97);
+			this._ButtAddStempelzeiten.Name = "_ButtAddStempelzeiten";
+			this._ButtAddStempelzeiten.Size = new System.Drawing.Size(297, 36);
+			this._ButtAddStempelzeiten.TabIndex = 3;
+			this._ButtAddStempelzeiten.Text = "AddStempelzeiten";
+			this._ButtAddStempelzeiten.Click += new System.EventHandler(this._ButtAddStempelzeiten_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1514, 1040);
+			this.Controls.Add(this._ButtAddStempelzeiten);
 			this.Controls.Add(this._ButtGetStempelzeiten);
 			this.Controls.Add(this._ButtGetUser);
 			this.Controls.Add(this._Ausgabe);
@@ -77,6 +88,7 @@
 		private DevExpress.XtraEditors.MemoEdit _Ausgabe;
 		private DevExpress.XtraEditors.SimpleButton _ButtGetUser;
 		private DevExpress.XtraEditors.SimpleButton _ButtGetStempelzeiten;
+		private DevExpress.XtraEditors.SimpleButton _ButtAddStempelzeiten;
 	}
 }
 

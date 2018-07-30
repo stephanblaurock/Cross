@@ -34,6 +34,8 @@ namespace Modules.Cross.Users.Models
 		public string ChatToken { get; set; }
 		public int ChatID { get; set; }
 
+		public int MitarbeiterkontaktIDGinkgo { get; set; }
+
 		public override string ToString() {
 			return this.Name;
 		}

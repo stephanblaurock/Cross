@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CrossUtils;
 using CrossUtils.Extensions;
+using Modules.Cross.Zeit.Models;
 
 namespace CrossUtilsTest {
 	public partial class Form1 : Form {
@@ -38,6 +39,19 @@ namespace CrossUtilsTest {
 			JsonCommandRetValue retval = await ModulesClientEnvironment.Default.JsonCommandClient.DoCommand(cmd);
 			this._Ausgabe.Text = retval.ReturnCode + "\r\n" + retval.ReturnMessage + "\r\n" + retval.ReturnValue;
 			
+		}
+
+		private async void _ButtAddStempelzeiten_Click(object sender, EventArgs e) {
+			Stempelzeit szeit = new Stempelzeit();
+			szeit.IDKontakt = 45310;
+			szeit.Datum = DateTime.Now;
+			szeit.UserIDCreated = 2;
+			szeit.Grund = "K";
+			szeit.Manual = true;
+			
+			JsonCommand cmd = DataFoxServiceCommands.CreateAddOrUpdateStempelzeitCommand(szeit);
+			JsonCommandRetValue retval = await ModulesClientEnvironment.Default.JsonCommandClient.DoCommand(cmd);
+			this._Ausgabe.Text = retval.ReturnCode + "\r\n" + retval.ReturnMessage + "\r\n" + retval.ReturnValue;
 		}
 	}
 }

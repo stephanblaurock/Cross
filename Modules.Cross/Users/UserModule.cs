@@ -19,6 +19,8 @@ namespace Modules.Cross.Users {
 			JsonCommandRetValue retval = await ModulesClientEnvironment.Default.JsonCommandClient.DoCommand(cmd);
 			if (retval.ReturnCode == 200) {
 				_CurrentUser = JsonConvert.DeserializeObject<User>(retval.ReturnValue);
+			} else {
+				_CurrentUser = null;
 			}
 			return _CurrentUser;
 		}
