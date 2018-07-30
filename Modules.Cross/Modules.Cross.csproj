@@ -13,6 +13,7 @@
     <Folder Include="Kalender\" />
     <Folder Include="OMS\" />
     <Folder Include="Users\ViewModels\" />
+    <Folder Include="Zeit\ViewModels\" />
   </ItemGroup>
 
 </Project>
