@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CrossUtils.Extensions;
 
-namespace Modules.Cross.Zeit.Models
-{
-    public class StempelTagInfo
-    {
+namespace Modules.Cross.Zeit.Models {
+	public class StempelTagInfo {
 		public int IDKontakt { get; set; }
 		public string Name { get; set; }
 		public DateTime Datum { get; set; }
+		public string DatumFormatted {
+			get { return Datum.DayOfWeekShortName() + " " + Datum.ToString("dd.MM.yyyy"); }
+		}
 		public int DayOfWeek { get; set; }
 		public bool IsWochenende { get; set; }
 		public bool IsFeiertag { get; set; }
@@ -23,5 +25,7 @@ namespace Modules.Cross.Zeit.Models
 		public decimal Pausenabzuege { get; set; }
 		public bool Error { get; set; }
 		public string ErrorString { get; set; }
-    }
+
+		public TimeSpan ManualTime { get; set; }
+	}
 }

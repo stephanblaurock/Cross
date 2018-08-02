@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Modules.Cross.Users.Models
-{
-    public class User
-    {
+namespace Modules.Cross.Users.Models {
+	public class User {
 		public int ID { get; set; }
 		public int UserIDGinkgo { get; set; }
 		public bool IsAdmin { get; set; }

@@ -7,15 +7,50 @@ using CrossUtils.Mvvm;
 using Modules.Cross.Users.Models;
 using Modules.Cross.Zeit.Models;
 using Newtonsoft.Json;
+using Modules.Cross.Users;
 
 namespace Modules.Cross.Zeit.ViewModels {
 	public class StempelPageViewModel : BaseViewModel {
 		public StempelPageViewModel() {
+			CurrentUserImageUrl = UserModule.Default.GetUserImageUrl(0);
 		}
 
+		private string _CurrentUserImageUrl = "";
 		public string CurrentUserImageUrl {
-			get { return "http://netlogger.eu:8992/img/cust_images/1.jpg"; }
+			get { return _CurrentUserImageUrl; }
+			set { _CurrentUserImageUrl = value; NotifyPropertyChanged("CurrentUserImageUrl"); }
 		}
+
+		private string _LabelNameText = "BITTE EINLOGGEN!";
+		public string LabelNameText {
+			get { return _LabelNameText; }
+			set { _LabelNameText = value; NotifyPropertyChanged("LabelNameText"); }
+		}
+
+		private bool _LoginTextboxVisible = true;
+		public bool LoginTextboxVisible {
+			get { return _LoginTextboxVisible; }
+			set { _LoginTextboxVisible = value; NotifyPropertyChanged("LoginTextboxVisible"); }
+		}
+
+		private string _LoginButtonText = "LOGIN";
+		public string LoginButtonText {
+			get { return _LoginButtonText; }
+			set { _LoginButtonText = value; NotifyPropertyChanged("LoginButtonText"); }
+		}
+
+		private bool _ButtKommenGehenVisible = false;
+		public bool ButtKommenGehenVisible {
+			get { return _ButtKommenGehenVisible; }
+			set { _ButtKommenGehenVisible = value; NotifyPropertyChanged("ButtKommenGehenVisible"); }
+		}
+
+		private bool _ListViewStempelzeitenVisible = false;
+		public bool ListViewStempelzeitenVisible {
+			get { return _ListViewStempelzeitenVisible; }
+			set { _ListViewStempelzeitenVisible = value; NotifyPropertyChanged("ListViewStempelzeitenVisible"); }
+		}
+
 
 		private User _CurrentUser;
 		public User CurrentUser {
@@ -23,14 +58,31 @@ namespace Modules.Cross.Zeit.ViewModels {
 			set {
 				_CurrentUser = value;
 				NotifyPropertyChanged();
+				if (_CurrentUser == null) {
+					this.LabelNameText = "BITTE EINLOGGEN";
+					this.LoginTextboxVisible = true;
+					this.LoginButtonText = "LOGIN";
+					this.ButtKommenGehenVisible = false;
+					this.ListViewStempelzeitenVisible = false;
+					CurrentUserImageUrl = UserModule.Default.GetUserImageUrl(0);
+					NotifyPropertyChanged("CurrentUserImageUrl");
+				} else {
+					this.LabelNameText = this._CurrentUser.Name;
+					this.LoginTextboxVisible = false;
+					this.LoginButtonText = "LOGOUT";
+					this.ButtKommenGehenVisible = true;
+					CurrentUserImageUrl = UserModule.Default.GetUserImageUrl(_CurrentUser.ID);
+					NotifyPropertyChanged("CurrentUserImageUrl");
+				}
 			}
 		}
 
 		public async Task<(bool success, string message)> Login(string pin) {
 			JsonCommand cmd = DataFoxServiceCommands.CreateGetUserByPINCommand(pin);
+			// string cmdUrl = ModulesClientEnvironment.Default.JsonCommandClient.BuildCommandUrl(cmd);
 			JsonCommandRetValue retValue = await ModulesClientEnvironment.Default.JsonCommandClient.DoCommand(cmd);
 			if (retValue.ReturnCode == 200) {
-				_CurrentUser = JsonConvert.DeserializeObject<User>(retValue.ReturnValue);
+				CurrentUser = JsonConvert.DeserializeObject<User>(retValue.ReturnValue);
 				this.RefreshStempelTagInfos();
 				return (true, "Benutzer erfolgreich eingeloggt");
 			}
@@ -38,8 +90,9 @@ namespace Modules.Cross.Zeit.ViewModels {
 		}
 
 		public void Logout() {
-			this._CurrentUser = null;
+			this.CurrentUser = null;
 			this._StempelTagInfos.Clear();
+
 		}
 
 		public async Task<(bool success, string message)> AddStempelzeit(bool kommend) {
@@ -70,7 +123,8 @@ namespace Modules.Cross.Zeit.ViewModels {
 
 		public async void RefreshStempelTagInfos() {
 			this.StempelTagInfos.Clear();
-			JsonCommand cmd = DataFoxServiceCommands.CreateGetStempelzeitenCommand(_CurrentUser.ID, DateTime.Today.AddDays(-7), DateTime.Today, true);
+			this.ListViewStempelzeitenVisible = true;
+			JsonCommand cmd = DataFoxServiceCommands.CreateGetStempelzeitenCommand(_CurrentUser.MitarbeiterkontaktIDGinkgo, DateTime.Today.AddDays(-7), DateTime.Today, true);
 			JsonCommandRetValue retValue = await ModulesClientEnvironment.Default.JsonCommandClient.DoCommand(cmd);
 			if (retValue.ReturnCode == 200) {
 				List<StempelTagInfo> infos = JsonConvert.DeserializeObject<List<StempelTagInfo>>(retValue.ReturnValue);
