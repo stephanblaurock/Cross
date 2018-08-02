@@ -32,5 +32,10 @@ namespace Modules.Cross.Users {
 			}
 		}
 
+		public string GetUserImageUrl(int userID) {
+			return ModulesClientEnvironment.Default.JsonCommandServerUrl + $"/cmd?jsoncommand&user={ModulesClientEnvironment.Default.JsonCommandClient.Username}"+
+				$"&token={ModulesClientEnvironment.Default.JsonCommandClient.Token}" +
+			  $"&modulename=Modules.Users.Service.UserService&commandname=GetUserImage&user_id={userID}&UserImageSize=2";
+		}
 	}
 }

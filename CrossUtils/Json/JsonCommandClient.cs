@@ -16,9 +16,9 @@ namespace CrossUtils.Json
 		/// z.B. http://resprovider/jsoncommands/docommand (im Header wird dann der Command mit allen Parametern übergeben)
 		/// </summary>
 		public string CommandUrl { get; set; } = "http://api.lumara.de/?jsoncommand";
-		private string _Username = "";
+		public string Username { get; private set; } = "";
 		private string _Password = "";
-		private string _Token = "";
+		public string Token { get; private set; } = "";
 		//public string Username { get; set; }
 		//public string ApiToken { get; set; }
 
@@ -26,12 +26,12 @@ namespace CrossUtils.Json
 
 		public JsonCommandClient(string webserverUrl, string username, string password) {
 			Default = this;
-			_Username = username;
+			Username = username;
 			_Password = password;
-			if (_Username == "ipc_user" && _Password == "")
-				this._Token = "Xdf#17Nx";
-			if (_Username == "admin_user" && _Password == "")
-				this._Token = "Xfüg#19Rs@";
+			if (Username == "ipc_user" && _Password == "")
+				this.Token = "Xdf#17Nx";
+			if (Username == "admin_user" && _Password == "")
+				this.Token = "Xfüg#19Rs@";
 			CommandUrl = webserverUrl + "/cmd?jsoncommand";
 			//if (!string.IsNullOrWhiteSpace(websocketUrl)) {
 			//	WebSocketClient = new Net.WebSocketClient(websocketUrl, userID, username);
@@ -47,7 +47,7 @@ namespace CrossUtils.Json
 		/// <returns></returns>
 		public string BuildCommandUrl(JsonCommand cmd) {
 			StringBuilder sb = new StringBuilder();
-			sb.Append(CommandUrl + "&user=" + _Username + "&token=" + _Token + "&modulename=" + cmd.ModuleName +
+			sb.Append(CommandUrl + "&user=" + Username + "&token=" + Token + "&modulename=" + cmd.ModuleName +
 				"&commandname=" + cmd.CommandName);
 			Dictionary<string, string> parameterList = cmd.GetParameterList();
 			foreach (string key in parameterList.Keys) {
@@ -74,21 +74,21 @@ namespace CrossUtils.Json
 		/// <returns></returns>
 		public async Task<JsonCommandRetValue> DoCommand(JsonCommand cmd) {
 			// sicherstellen, daß der User und der Token immer mitgeschickt werden
-			cmd.SetParameter("user", this._Username);
-			cmd.SetParameter("token", this._Token);
+			cmd.SetParameter("user", this.Username);
+			cmd.SetParameter("token", this.Token);
 			JsonCommandRetValue retval = await MakeUrlRequest(cmd);
 			// Wir haben ja jetzt einen Auth-Service eingebaut, damit nicht jeder Hinz und Kunz hier JsonCommands absetzen kann ;-)
 			// Daher muss ich jetzt die 401-Meldungen abfangen
 			if (retval.ReturnCode == 401) {
 				// 401 = unauthorisiert, nun einfach einen login-command senden, und dann prüfen, ob dann der command durchgeht
 				JsonCommand authCommand = new JsonCommand("", "Login");
-				authCommand.SetParameter("user", _Username);
+				authCommand.SetParameter("user", Username);
 				authCommand.SetParameter("password", _Password);
 				JsonCommandRetValue authCommandRetValue = await MakeUrlRequest(authCommand);
 				if (authCommandRetValue.ReturnCode == 200 || authCommandRetValue.ReturnCode == 1) {
 					// Login erfolgreich, also wieder den alten JsonCommand senden
-					this._Token = authCommandRetValue.ReturnValue;
-					cmd.SetParameter("token", this._Token);
+					this.Token = authCommandRetValue.ReturnValue;
+					cmd.SetParameter("token", this.Token);
 					return await MakeUrlRequest(cmd);
 				} else {
 					// Login fehlgeschlagen, ich gebe den LoginRetValue zurück

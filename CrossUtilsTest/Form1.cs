@@ -53,5 +53,16 @@ namespace CrossUtilsTest {
 			JsonCommandRetValue retval = await ModulesClientEnvironment.Default.JsonCommandClient.DoCommand(cmd);
 			this._Ausgabe.Text = retval.ReturnCode + "\r\n" + retval.ReturnMessage + "\r\n" + retval.ReturnValue;
 		}
+
+		private async void _ButtLoginUser_Click(object sender, EventArgs e) {
+			JsonCommand cmd = DataFoxServiceCommands.CreateGetUserByPINCommand("01055854");
+			JsonCommandRetValue retval = await ModulesClientEnvironment.Default.JsonCommandClient.DoCommand(cmd);
+			this._Ausgabe.Text = retval.ReturnCode + "\r\n" + retval.ReturnMessage + "\r\n" + retval.ReturnValue;
+			User usr = JsonConvert.DeserializeObject<User>(retval.ReturnValue);
+
+			this._Ausgabe.Text += "\r\nUrl: " + UserModule.Default.GetUserImageUrl(usr.ID);
+
+			this.pictureEdit1.LoadAsync(UserModule.Default.GetUserImageUrl(usr.ID));
+		}
 	}
 }
