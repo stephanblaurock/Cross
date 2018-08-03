@@ -35,7 +35,7 @@ namespace CrossUtilsTest {
 		}
 
 		private async void _ButtGetStempelzeiten_Click(object sender, EventArgs e) {
-			JsonCommand cmd = DataFoxServiceCommands.CreateGetStempelzeitenCommand(45310, DateTime.Today.AddDays(-3), DateTime.Today.MaximizeTimePart(), true);
+			JsonCommand cmd = DataFoxServiceCommands.CreateGetStempelzeitenCommand(45310, DateTime.Today.AddDays(-7), DateTime.Today.MaximizeTimePart(), true);
 			JsonCommandRetValue retval = await ModulesClientEnvironment.Default.JsonCommandClient.DoCommand(cmd);
 			this._Ausgabe.Text = retval.ReturnCode + "\r\n" + retval.ReturnMessage + "\r\n" + retval.ReturnValue;
 			
@@ -44,10 +44,11 @@ namespace CrossUtilsTest {
 		private async void _ButtAddStempelzeiten_Click(object sender, EventArgs e) {
 			Stempelzeit szeit = new Stempelzeit();
 			szeit.IDKontakt = 45310;
-			szeit.Datum = DateTime.Now;
+			szeit.Datum = new DateTime(2018, 8, 3, 8, 2, 13);	// DateTime.Now;
 			szeit.UserIDCreated = 2;
 			szeit.Grund = "K";
 			szeit.Manual = true;
+			szeit.ShouldDeleted = true;
 			
 			JsonCommand cmd = DataFoxServiceCommands.CreateAddOrUpdateStempelzeitCommand(szeit);
 			JsonCommandRetValue retval = await ModulesClientEnvironment.Default.JsonCommandClient.DoCommand(cmd);
